@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Plus, Leaf, Egg, Utensils, Beef, Info } from 'lucide-react';
 import { calculateLoggedActivity } from '../../domain/carbonCalculator';
 
@@ -181,3 +182,9 @@ export default function QuickLogger({ onAddActivity, handleMouseMove, handleMous
     </div>
   );
 }
+
+QuickLogger.propTypes = {
+  onAddActivity: PropTypes.func.isRequired,
+  handleMouseMove: PropTypes.func.isRequired,
+  handleMouseLeave: PropTypes.func.isRequired
+};

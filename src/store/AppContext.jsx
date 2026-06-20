@@ -1,4 +1,6 @@
+/* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useState, useEffect, useMemo, useCallback } from 'react';
+import PropTypes from 'prop-types';
 import { safeReadStorage, writeStorage, removeStorage, KEYS } from '../services/storage';
 import { buildActivity, sanitiseCSVImport } from '../services/activityService';
 import { MOCK_ACTIONS } from '../domain/mockData';
@@ -12,7 +14,7 @@ import {
 } from '../domain/scoring';
 import { useToast } from '../hooks/useToast';
 
-const AppContext = createContext(null);
+export const AppContext = createContext(null);
 
 /**
  * AppProvider — wraps the entire app with global state.
@@ -166,12 +168,20 @@ export function AppProvider({ children }) {
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 }
 
+AppProvider.propTypes = {
+  children: PropTypes.node.isRequired
+};
+
 /**
  * useAppStore — consume global application state and actions.
  * Must be used inside <AppProvider>.
+ *
+ * @returns {Object} App store context containing state and callback actions.
  */
 export const useAppStore = () => {
   const ctx = useContext(AppContext);
-  if (!ctx) throw new Error('useAppStore must be used within <AppProvider>');
+  if (!ctx) {
+    throw new Error('useAppStore must be used within <AppProvider>');
+  }
   return ctx;
 };

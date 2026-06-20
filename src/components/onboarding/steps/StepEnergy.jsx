@@ -1,8 +1,19 @@
 import { Home, ArrowLeft, ArrowRight } from 'lucide-react';
+import PropTypes from 'prop-types';
 
 /**
  * StepEnergy — Step 4 of onboarding.
  * Collects home size, monthly energy bill, and green energy status.
+ *
+ * @param {Object} props
+ * @param {string} props.homeSize - Housing size category ('small', 'medium', 'large').
+ * @param {Function} props.setHomeSize - Callback to change housing size.
+ * @param {number} props.monthlyEnergyBill - Monthly utility bill in dollars.
+ * @param {Function} props.setMonthlyEnergyBill - Callback to change energy bill value.
+ * @param {boolean} props.isGreenEnergy - Is energy sourced from clean power grid.
+ * @param {Function} props.setIsGreenEnergy - Callback to toggle green energy status.
+ * @param {Function} props.onNext - Transition to next wizard card.
+ * @param {Function} props.onBack - Transition to previous wizard card.
  */
 export default function StepEnergy({
   homeSize, setHomeSize,
@@ -105,3 +116,14 @@ export default function StepEnergy({
     </section>
   );
 }
+
+StepEnergy.propTypes = {
+  homeSize: PropTypes.string.isRequired,
+  setHomeSize: PropTypes.func.isRequired,
+  monthlyEnergyBill: PropTypes.number.isRequired,
+  setMonthlyEnergyBill: PropTypes.func.isRequired,
+  isGreenEnergy: PropTypes.bool.isRequired,
+  setIsGreenEnergy: PropTypes.func.isRequired,
+  onNext: PropTypes.func.isRequired,
+  onBack: PropTypes.func.isRequired
+};

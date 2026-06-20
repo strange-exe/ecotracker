@@ -1,4 +1,5 @@
 import { Calendar, Sprout } from 'lucide-react';
+import PropTypes from 'prop-types';
 
 /**
  * ActivityHistory — table of the 5 most recent logged activities.
@@ -71,3 +72,14 @@ export default function ActivityHistory({ activities, onRemoveActivity }) {
     </section>
   );
 }
+
+ActivityHistory.propTypes = {
+  activities: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    date: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+    category: PropTypes.string.isRequired,
+    co2e: PropTypes.number.isRequired
+  })).isRequired,
+  onRemoveActivity: PropTypes.func.isRequired
+};

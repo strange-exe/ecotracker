@@ -1,4 +1,5 @@
 import { Leaf, LayoutDashboard, Compass, TrendingUp, Trophy, CloudLightning, RefreshCw, Flame, Award } from 'lucide-react';
+import PropTypes from 'prop-types';
 import { useAppStore } from '../../store/AppContext';
 
 const NAV_ITEMS = [
@@ -74,6 +75,7 @@ export default function AppHeader({ activeTab, onTabChange }) {
                 boxShadow: activeTab === id ? '0 0 15px rgba(74, 222, 128, 0.08)' : 'none'
               }}
               aria-current={activeTab === id ? 'page' : undefined}
+              aria-label={label}
             >
               <Icon size={16} />
               <span className="nav-text">{label}</span>
@@ -125,3 +127,8 @@ export default function AppHeader({ activeTab, onTabChange }) {
     </header>
   );
 }
+
+AppHeader.propTypes = {
+  activeTab: PropTypes.string.isRequired,
+  onTabChange: PropTypes.func.isRequired
+};

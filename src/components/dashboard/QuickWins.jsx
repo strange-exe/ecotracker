@@ -1,4 +1,5 @@
 import { Check, Zap, Flame } from 'lucide-react';
+import PropTypes from 'prop-types';
 
 /**
  * QuickWins — shows up to 2 incomplete "quick" actions the user can complete.
@@ -70,3 +71,17 @@ export default function QuickWins({ featuredQuickWins, onCompleteAction }) {
     </div>
   );
 }
+
+QuickWins.propTypes = {
+  featuredQuickWins: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    co2Saved: PropTypes.number.isRequired,
+    healthBenefit: PropTypes.shape({
+      points: PropTypes.number.isRequired,
+      kcal: PropTypes.number.isRequired
+    }).isRequired
+  })).isRequired,
+  onCompleteAction: PropTypes.func.isRequired
+};

@@ -1,4 +1,5 @@
 import { Leaf, ArrowLeft, ArrowRight } from 'lucide-react';
+import PropTypes from 'prop-types';
 import { handleTiltMove, handleTiltLeave } from '../../../utils/tiltHandlers';
 
 const DIET_OPTIONS = [
@@ -35,6 +36,12 @@ const DIET_OPTIONS = [
 /**
  * StepDiet — Step 3 of onboarding.
  * Collects the user's dietary pattern via card selection.
+ *
+ * @param {Object} props
+ * @param {string} props.dietType - Active diet category code.
+ * @param {Function} props.setDietType - Callback to change diet category.
+ * @param {Function} props.onNext - Transition to next wizard card.
+ * @param {Function} props.onBack - Transition to previous wizard card.
  */
 export default function StepDiet({ dietType, setDietType, onNext, onBack }) {
   const handleMouseMove = (e) => handleTiltMove(e, 5);
@@ -89,4 +96,11 @@ export default function StepDiet({ dietType, setDietType, onNext, onBack }) {
     </section>
   );
 }
+
+StepDiet.propTypes = {
+  dietType: PropTypes.string.isRequired,
+  setDietType: PropTypes.func.isRequired,
+  onNext: PropTypes.func.isRequired,
+  onBack: PropTypes.func.isRequired
+};
 

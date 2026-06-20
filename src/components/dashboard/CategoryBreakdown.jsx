@@ -1,4 +1,5 @@
 import { memo } from 'react';
+import PropTypes from 'prop-types';
 import { Car, Leaf, Home, Trash2, TrendingDown } from 'lucide-react';
 
 const CATEGORIES = [
@@ -39,7 +40,15 @@ function CategoryBreakdown({ baseline, breakdown, handleMouseMove, handleMouseLe
                   </span>
                   <span style={{ fontWeight: 600 }}>{value} kg CO2</span>
                 </div>
-                <div style={{ background: 'rgba(255,255,255,0.03)', height: '6px', borderRadius: '3px' }}>
+                <div
+                  style={{ background: 'rgba(255,255,255,0.03)', height: '6px', borderRadius: '3px' }}
+                  role="progressbar"
+                  aria-valuenow={Math.round(pct)}
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                  aria-label={`${label} baseline share`}
+                  aria-valuetext={`${value} kg CO2, representing ${Math.round(pct)}% of total baseline`}
+                >
                   <div className="animate-grow-width" style={{ background: color, height: '100%', borderRadius: '3px', width: `${pct}%` }} />
                 </div>
               </div>
@@ -50,5 +59,17 @@ function CategoryBreakdown({ baseline, breakdown, handleMouseMove, handleMouseLe
     </div>
   );
 }
+
+CategoryBreakdown.propTypes = {
+  baseline: PropTypes.number.isRequired,
+  breakdown: PropTypes.shape({
+    transport: PropTypes.number,
+    diet: PropTypes.number,
+    energy: PropTypes.number,
+    waste: PropTypes.number
+  }).isRequired,
+  handleMouseMove: PropTypes.func.isRequired,
+  handleMouseLeave: PropTypes.func.isRequired
+};
 
 export default memo(CategoryBreakdown);

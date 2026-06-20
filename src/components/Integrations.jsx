@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import { 
   Activity, 
   Calendar, 
@@ -11,6 +12,15 @@ import {
   AlertCircle
 } from 'lucide-react';
 
+/**
+ * Integrations — component for device auto-sync simulators and bulk data actions.
+ * Allows importing/exporting CSV data and simulating external API sync triggers.
+ *
+ * @param {Object} props
+ * @param {Object} props.userProfile - Active user's configuration and baseline details.
+ * @param {Function} props.onImportCSV - Callback to append parsed CSV log entries to parent state.
+ * @param {Function} props.onAddActivity - Callback to log a single simulated offsets record.
+ */
 export default function Integrations({ userProfile, onImportCSV, onAddActivity }) {
   // Sync simulation states
   const [fitnessConnected, setFitnessConnected] = useState(false);
@@ -389,7 +399,14 @@ Jun 15,"Commuted by subway metro line",SAVINGS,2.4`;
         </section>
 
       </div>
-
     </div>
   );
 }
+
+Integrations.propTypes = {
+  userProfile: PropTypes.shape({
+    userName: PropTypes.string.isRequired
+  }).isRequired,
+  onImportCSV: PropTypes.func.isRequired,
+  onAddActivity: PropTypes.func.isRequired
+};

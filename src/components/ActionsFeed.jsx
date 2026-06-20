@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import PropTypes from 'prop-types';
 import { handleTiltMove, handleTiltLeave } from '../utils/tiltHandlers';
 import { 
   Car, 
@@ -12,6 +13,13 @@ import {
   Info
 } from 'lucide-react';
 
+/**
+ * ActionsFeed — list of all recommended eco-actions with search and category filtering.
+ *
+ * @param {Object} props
+ * @param {Array} props.actions - Full list of climate actions with completion and carbon details.
+ * @param {Function} props.onCompleteAction - Callback triggered when completing an action.
+ */
 export default function ActionsFeed({ actions, onCompleteAction }) {
   const [categoryFilter, setCategoryFilter] = useState('all');
   const [difficultyFilter, setDifficultyFilter] = useState('all');
@@ -328,3 +336,8 @@ export default function ActionsFeed({ actions, onCompleteAction }) {
     </div>
   );
 }
+
+ActionsFeed.propTypes = {
+  actions: PropTypes.array.isRequired,
+  onCompleteAction: PropTypes.func.isRequired
+};

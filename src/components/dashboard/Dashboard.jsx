@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import PropTypes from 'prop-types';
 import { Car, GraduationCap, Sprout } from 'lucide-react';
 import { handleTiltMove, handleTiltLeave } from '../../utils/tiltHandlers';
 import CarbonGauge from './CarbonGauge';
@@ -148,3 +149,19 @@ export default function Dashboard({
     </div>
   );
 }
+
+Dashboard.propTypes = {
+  userProfile: PropTypes.shape({
+    userName: PropTypes.string.isRequired,
+    persona: PropTypes.string.isRequired,
+    baseline: PropTypes.number.isRequired,
+    breakdown: PropTypes.object.isRequired
+  }).isRequired,
+  activities: PropTypes.array.isRequired,
+  onAddActivity: PropTypes.func.isRequired,
+  onRemoveActivity: PropTypes.func.isRequired,
+  actions: PropTypes.array.isRequired,
+  onCompleteAction: PropTypes.func.isRequired,
+  co2Saved: PropTypes.number.isRequired,
+  points: PropTypes.number.isRequired
+};

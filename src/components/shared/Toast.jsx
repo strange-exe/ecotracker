@@ -1,4 +1,5 @@
 import { Bell } from 'lucide-react';
+import PropTypes from 'prop-types';
 
 /**
  * Toast — premium notification banner.
@@ -53,3 +54,10 @@ export default function Toast({ toast }) {
     </div>
   );
 }
+
+Toast.propTypes = {
+  toast: PropTypes.shape({
+    message: PropTypes.string.isRequired,
+    type: PropTypes.oneOf(['success', 'info', 'error']).isRequired
+  })
+};

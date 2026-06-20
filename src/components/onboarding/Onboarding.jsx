@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react';
+import PropTypes from 'prop-types';
 import { Leaf } from 'lucide-react';
 import { calculateOnboardingBaseline } from '../../domain/carbonCalculator';
 import {
@@ -189,3 +190,7 @@ export default function Onboarding({ onComplete }) {
     </main>
   );
 }
+
+Onboarding.propTypes = {
+  onComplete: PropTypes.func.isRequired
+};

@@ -1,8 +1,19 @@
 import { Car, ArrowLeft, ArrowRight } from 'lucide-react';
+import PropTypes from 'prop-types';
 
 /**
  * StepTransport — Step 2 of onboarding.
  * Collects commute mode, weekly distance, and annual flights.
+ *
+ * @param {Object} props
+ * @param {string} props.commuteMode - Selected commute travel type.
+ * @param {Function} props.setCommuteMode - Callback to update commute type.
+ * @param {number} props.commuteDistance - Weekly commute distance in km.
+ * @param {Function} props.setCommuteDistance - Callback to update commute distance.
+ * @param {number} props.flightsPerYear - Number of flights taken annually.
+ * @param {Function} props.setFlightsPerYear - Callback to update annual flights.
+ * @param {Function} props.onNext - Transition to next wizard card.
+ * @param {Function} props.onBack - Transition to previous wizard card.
  */
 export default function StepTransport({
   commuteMode, setCommuteMode,
@@ -85,3 +96,14 @@ export default function StepTransport({
     </section>
   );
 }
+
+StepTransport.propTypes = {
+  commuteMode: PropTypes.string.isRequired,
+  setCommuteMode: PropTypes.func.isRequired,
+  commuteDistance: PropTypes.number.isRequired,
+  setCommuteDistance: PropTypes.func.isRequired,
+  flightsPerYear: PropTypes.number.isRequired,
+  setFlightsPerYear: PropTypes.func.isRequired,
+  onNext: PropTypes.func.isRequired,
+  onBack: PropTypes.func.isRequired
+};

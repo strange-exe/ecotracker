@@ -1,9 +1,17 @@
 import { ArrowRight, GraduationCap, User, Sprout } from 'lucide-react';
+import PropTypes from 'prop-types';
 import { handleTiltMove, handleTiltLeave } from '../../../utils/tiltHandlers';
 
 /**
  * StepPersona — Step 1 of onboarding.
  * Collects user name and selects a lifestyle preset.
+ *
+ * @param {Object} props
+ * @param {string} props.name - User's name state.
+ * @param {Function} props.setName - Callback to update name.
+ * @param {string} props.persona - Selected preset lifestyle ID.
+ * @param {Function} props.onApplyPersona - Callback to apply a lifestyle baseline preset.
+ * @param {Function} props.onNext - Callback to transition to the next step.
  */
 export default function StepPersona({ name, setName, persona, onApplyPersona, onNext }) {
   const PRESETS = [
@@ -103,3 +111,11 @@ export default function StepPersona({ name, setName, persona, onApplyPersona, on
     </section>
   );
 }
+
+StepPersona.propTypes = {
+  name: PropTypes.string.isRequired,
+  setName: PropTypes.func.isRequired,
+  persona: PropTypes.string.isRequired,
+  onApplyPersona: PropTypes.func.isRequired,
+  onNext: PropTypes.func.isRequired
+};

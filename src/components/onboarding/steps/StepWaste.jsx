@@ -1,4 +1,5 @@
 import { Trash2, ArrowLeft, Activity } from 'lucide-react';
+import PropTypes from 'prop-types';
 import { handleTiltMove, handleTiltLeave } from '../../../utils/tiltHandlers';
 
 const HABITS = [
@@ -28,6 +29,13 @@ const HABITS = [
 /**
  * StepWaste — Step 5 of onboarding (final data-collection step).
  * Collects recycling/waste habits. Triggers calculation on submit.
+ *
+ * @param {Object} props
+ * @param {string} props.recyclingHabit - Select waste category code.
+ * @param {Function} props.setRecyclingHabit - Callback to change recycling habits.
+ * @param {Function} props.onCalculate - Triggers baseline metrics calculations.
+ * @param {Function} props.onBack - Transition to previous wizard card.
+ * @param {boolean} props.calculating - Loading indicator status for calculations.
  */
 export default function StepWaste({ recyclingHabit, setRecyclingHabit, onCalculate, onBack, calculating }) {
   const handleMouseMove = (e) => handleTiltMove(e, 5);
@@ -88,4 +96,12 @@ export default function StepWaste({ recyclingHabit, setRecyclingHabit, onCalcula
     </section>
   );
 }
+
+StepWaste.propTypes = {
+  recyclingHabit: PropTypes.string.isRequired,
+  setRecyclingHabit: PropTypes.func.isRequired,
+  onCalculate: PropTypes.func.isRequired,
+  onBack: PropTypes.func.isRequired,
+  calculating: PropTypes.bool.isRequired
+};
 

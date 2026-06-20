@@ -1,4 +1,5 @@
 import { CheckCircle, Smile } from 'lucide-react';
+import PropTypes from 'prop-types';
 import { handleTiltMove, handleTiltLeave } from '../../../utils/tiltHandlers';
 import { dailyKgToAnnualTons } from '../../../domain/carbonCalculator';
 
@@ -40,6 +41,10 @@ const DRIVER_INFO = {
 /**
  * StepResult — Step 6 of onboarding (final result screen).
  * Shows the calculated baseline footprint and personalised recommendation.
+ *
+ * @param {Object} props
+ * @param {Object} props.result - Calculation baseline results with totals and category breakdown.
+ * @param {Function} props.onFinish - Triggers application dashboard activation.
  */
 export default function StepResult({ result, onFinish }) {
   if (!result) return null;
@@ -135,3 +140,12 @@ export default function StepResult({ result, onFinish }) {
     </section>
   );
 }
+
+StepResult.propTypes = {
+  result: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    totalDailyKg: PropTypes.number.isRequired,
+    breakdown: PropTypes.object.isRequired
+  }),
+  onFinish: PropTypes.func.isRequired
+};

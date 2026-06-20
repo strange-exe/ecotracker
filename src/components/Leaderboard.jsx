@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import PropTypes from 'prop-types';
 import { MOCK_PEERS } from '../domain/mockData';
 import { handleTiltMove, handleTiltLeave } from '../utils/tiltHandlers';
 import { 
@@ -14,6 +15,15 @@ import {
   Utensils
 } from 'lucide-react';
 
+/**
+ * Leaderboard — peer ranking comparison page and milestone awards display.
+ *
+ * @param {Object} props
+ * @param {Object} props.userProfile - Active user configuration containing baseline metrics.
+ * @param {number} props.co2Saved - User's total carbon saved this month (kg).
+ * @param {number} props.streakDays - Current consecutive tracking days.
+ * @param {number} props.userLevel - User's current calculated Eco Level.
+ */
 export default function Leaderboard({ userProfile, co2Saved, streakDays, userLevel }) {
   const [cohortFilter, setCohortFilter] = useState('all');
 
@@ -363,7 +373,15 @@ export default function Leaderboard({ userProfile, co2Saved, streakDays, userLev
         </section>
 
       </div>
-
     </div>
   );
 }
+
+Leaderboard.propTypes = {
+  userProfile: PropTypes.shape({
+    userName: PropTypes.string.isRequired
+  }).isRequired,
+  co2Saved: PropTypes.number.isRequired,
+  streakDays: PropTypes.number.isRequired,
+  userLevel: PropTypes.number.isRequired
+};

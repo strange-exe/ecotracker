@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import PropTypes from 'prop-types';
 import { 
   AreaChart, 
   Area, 
@@ -38,6 +39,14 @@ const CustomTooltip = ({ active, payload }) => {
   return null;
 };
 
+/**
+ * Analytics — page rendering Recharts trends and the full logbook details.
+ *
+ * @param {Object} props
+ * @param {Object} props.userProfile - Active user configuration containing baseline metrics.
+ * @param {Array} props.activities - Historically logged emissions/savings events.
+ * @param {Function} props.onRemoveActivity - Callback to delete a logged record.
+ */
 export default function Analytics({ userProfile, activities, onRemoveActivity }) {
   const [historyLimit, setHistoryLimit] = useState(7); // 7 days or 28 days filter
 
@@ -294,3 +303,11 @@ export default function Analytics({ userProfile, activities, onRemoveActivity })
     </div>
   );
 }
+
+Analytics.propTypes = {
+  userProfile: PropTypes.shape({
+    baseline: PropTypes.number.isRequired
+  }).isRequired,
+  activities: PropTypes.array.isRequired,
+  onRemoveActivity: PropTypes.func.isRequired
+};

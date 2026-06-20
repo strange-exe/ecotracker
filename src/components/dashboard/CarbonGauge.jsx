@@ -1,4 +1,5 @@
 import { memo } from 'react';
+import PropTypes from 'prop-types';
 
 /**
  * CarbonGauge — SVG circular ring gauge showing today's net CO2 index.
@@ -33,7 +34,16 @@ function CarbonGauge({
         style={{ padding: '2rem', display: 'flex', alignItems: 'center', gap: '2rem', flexWrap: 'wrap', justifyContent: 'center', position: 'relative', overflow: 'hidden' }}
       >
         {/* SVG Ring */}
-        <div className="parallax-gauge" style={{ position: 'relative', width: '150px', height: '150px', zIndex: 20 }}>
+        <div
+          className="parallax-gauge"
+          style={{ position: 'relative', width: '150px', height: '150px', zIndex: 20 }}
+          role="meter"
+          aria-valuenow={currentNetDaily}
+          aria-valuemin={0}
+          aria-valuemax={Math.max(100, baseline * 2)}
+          aria-label="Today's Carbon Index Gauge"
+          aria-valuetext={`${currentNetDaily} kg CO2e per day, which is ${percentOfBaseline}% of your onboarding baseline`}
+        >
           <svg width="150" height="150" viewBox="0 0 150 150" style={{ transform: 'rotate(-90deg)' }} aria-hidden="true">
             <circle cx="75" cy="75" r={radius} stroke="rgba(255,255,255,0.04)" strokeWidth={strokeWidth} fill="transparent" />
             <circle
@@ -86,5 +96,15 @@ function CarbonGauge({
     </div>
   );
 }
+
+CarbonGauge.propTypes = {
+  baseline: PropTypes.number.isRequired,
+  currentNetDaily: PropTypes.number.isRequired,
+  percentOfBaseline: PropTypes.number.isRequired,
+  loggedEmissionsToday: PropTypes.number.isRequired,
+  loggedSavingsToday: PropTypes.number.isRequired,
+  handleMouseMove: PropTypes.func.isRequired,
+  handleMouseLeave: PropTypes.func.isRequired
+};
 
 export default memo(CarbonGauge);
