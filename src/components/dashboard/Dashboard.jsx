@@ -1,7 +1,8 @@
-import { useMemo } from 'react';
+import { useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { Car, GraduationCap, Sprout } from 'lucide-react';
 import { handleTiltMove, handleTiltLeave } from '../../utils/tiltHandlers';
+import { computeLevel } from '../../domain/scoring';
 import CarbonGauge from './CarbonGauge';
 import CategoryBreakdown from './CategoryBreakdown';
 import QuickLogger from './QuickLogger';
@@ -28,8 +29,9 @@ export default function Dashboard({
   co2Saved,
   points
 }) {
-  // Tilt handlers shared across all tilt-card children
-  const handleMouseMove = (e) => handleTiltMove(e, 6);
+  // Tilt handlers shared across all tilt-card children.
+  // useCallback prevents new function references on every render.
+  const handleMouseMove = useCallback((e) => handleTiltMove(e, 6), []);
   const handleMouseLeave = handleTiltLeave;
 
   // Derived daily metrics
@@ -102,7 +104,7 @@ export default function Dashboard({
               {points} <span style={{ fontSize: '0.8rem', fontWeight: 500 }}>pts</span>
             </div>
             <div style={{ fontSize: '0.7rem', color: 'var(--text-primary)', opacity: 0.75, marginTop: '0.25rem' }}>
-              Level {Math.floor(points / 100) + 1}
+              Level {computeLevel(points)}
             </div>
           </div>
         </div>

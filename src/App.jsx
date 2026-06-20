@@ -9,14 +9,17 @@ import SectionLoader from './components/shared/SectionLoader';
 import Toast from './components/shared/Toast';
 
 // Code-split lazy imports — keep initial bundle lean
-const ActionsFeed   = lazy(() => import('./components/ActionsFeed'));
-const Analytics     = lazy(() => import('./components/Analytics'));
-const Leaderboard   = lazy(() => import('./components/Leaderboard'));
-const Integrations  = lazy(() => import('./components/Integrations'));
+const ActionsFeed  = lazy(() => import('./components/ActionsFeed'));
+const Analytics    = lazy(() => import('./components/Analytics'));
+const Leaderboard  = lazy(() => import('./components/Leaderboard'));
+const Integrations = lazy(() => import('./components/Integrations'));
 
 /**
  * AppShell — renders either the onboarding wizard or the full logged-in experience.
- * Consumes global state exclusively from AppContext; no prop-drilling.
+ *
+ * Deliberately destructures the complete store here so that each lazy-loaded
+ * tab panel receives only the slice it needs via explicit props, keeping
+ * child components decoupled from the context API.
  */
 function AppShell() {
   const {
@@ -49,7 +52,7 @@ function AppShell() {
 
   // ── Logged-in Shell ───────────────────────────────────────────────────────
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', position: 'relative', zIndex: 10 }}>
+    <div className="app-shell">
       {/* WCAG 2.4.1 — Skip Navigation */}
       <a href="#main-content" className="skip-nav">Skip to main content</a>
 
@@ -57,7 +60,7 @@ function AppShell() {
       <Toast toast={toast} />
       <AppHeader activeTab={activeTab} onTabChange={setActiveTab} />
 
-      <main id="main-content" className="container" style={{ flex: 1, paddingBottom: '4rem' }}>
+      <main id="main-content" className="container app-main-content">
 
         {activeTab === 'dashboard' && (
           <Dashboard

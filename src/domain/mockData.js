@@ -4,6 +4,43 @@
  * PURE DOMAIN MODULE — no React imports, no DOM, no localStorage.
  */
 
+/**
+ * @typedef {Object} HealthBenefit
+ * @property {string} text   - Human-readable description of the health benefit
+ * @property {number} kcal  - Approximate calories burned by performing the action
+ * @property {number} points - Gamification points awarded on completion
+ */
+
+/**
+ * @typedef {Object} Action
+ * @property {string}        id          - Stable unique identifier (e.g. 'action-1')
+ * @property {string}        title       - Short display title
+ * @property {string}        description - Full description shown in the action card
+ * @property {string}        category    - 'diet' | 'transport' | 'energy' | 'waste'
+ * @property {number}        co2Saved    - kg CO2e saved when the action is completed
+ * @property {string}        difficulty  - 'Easy' | 'Medium' | 'Hard'
+ * @property {string}        type        - 'quick' (one-off) | 'habit' (recurring)
+ * @property {HealthBenefit} healthBenefit - Dual co-benefit descriptor
+ */
+
+/**
+ * @typedef {Object} Peer
+ * @property {string}  name              - Display name of the peer
+ * @property {number}  savingsThisMonth  - Total kg CO2e saved in the current month
+ * @property {number}  streakDays        - Consecutive active days
+ * @property {number}  level             - Gamification level
+ * @property {boolean} isUser            - True when this entry represents the current user
+ * @property {string}  avatar            - Two-character initials for the avatar
+ */
+
+/**
+ * @typedef {Object} RegionalBenchmarks
+ * @property {number} national_average  - kg CO2 per capita per day (national)
+ * @property {number} peer_average      - kg CO2 per day for a similar demographic
+ * @property {number} champion_average  - kg CO2 per day for highly active eco users
+ */
+
+/** @type {Action[]} */
 export const MOCK_ACTIONS = [
   {
     id: 'action-1',
@@ -97,6 +134,7 @@ export const MOCK_ACTIONS = [
   }
 ];
 
+/** @type {Peer[]} */
 export const MOCK_PEERS = [
   { name: 'Chloe (Eco Leader)', savingsThisMonth: 124.5, streakDays: 28, level: 8, isUser: false, avatar: 'CL' },
   { name: 'Noah (Cyclist)', savingsThisMonth: 95.8, streakDays: 14, level: 6, isUser: false, avatar: 'NH' },
@@ -106,6 +144,7 @@ export const MOCK_PEERS = [
   { name: 'Ethan (Beginner)', savingsThisMonth: 18.5, streakDays: 2, level: 2, isUser: false, avatar: 'ET' }
 ];
 
+/** @type {RegionalBenchmarks} */
 export const REGIONAL_BENCHMARKS = {
   national_average: 44.5,  // kg CO2 per day per capita
   peer_average: 28.2,      // Similar demographic/student cohort average

@@ -57,6 +57,23 @@
   padding: 0;
 }
 
+/* ── Application Shell Layout ───────────────────────────────────────────── */
+
+/** Root flex column that stretches the app to full viewport height. */
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  position: relative;
+  z-index: 10;
+}
+
+/** Main content area; grows to fill remaining space between header and footer. */
+.app-main-content {
+  flex: 1;
+  padding-bottom: 4rem;
+}
+
 body {
   background-color: var(--bg-main);
   color: var(--text-primary);

@@ -46,6 +46,16 @@ export const EMISSION_FACTORS = {
 };
 
 /**
+ * Daily kg CO2 heating baseline by home size (kg CO2e/day).
+ * Stored as a lookup object to avoid repetitive if-chains.
+ */
+const HEATING_BASELINE_BY_SIZE = {
+  small: 0.5,
+  medium: 1.5,
+  large: 3.0
+};
+
+/**
  * Convert daily kg CO2 to annual tons
  * @param {number} dailyKg
  * @returns {number}
@@ -92,10 +102,8 @@ export const calculateEnergyFootprint = (homeSize, monthlyBill, isGreenEnergy) =
     ? EMISSION_FACTORS.energy.electricity_green
     : EMISSION_FACTORS.energy.electricity_standard;
 
-  // Add structural heating baseline depending on home size
-  let heatingBaseline = 0.5; // small
-  if (homeSize === 'medium') heatingBaseline = 1.5;
-  if (homeSize === 'large') heatingBaseline = 3.0;
+  // Structural heating overhead — falls back to 'small' for unrecognised sizes
+  const heatingBaseline = HEATING_BASELINE_BY_SIZE[homeSize] ?? HEATING_BASELINE_BY_SIZE.small;
 
   return parseFloat((dailyKwh * factor + heatingBaseline).toFixed(2));
 };
